@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug mcp-blob-tool-client",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/mcp-blob-tool-client/bin/Debug/net9.0/mcp-blob-tool-client.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/mcp-blob-tool-client",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Debug mcp-blob-tool (server)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-server",
+            "program": "${workspaceFolder}/mcp-blob-tool/bin/Debug/net9.0/mcp-blob-tool.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/mcp-blob-tool",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }
+    ]
+}

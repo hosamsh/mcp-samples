@@ -1,0 +1,10 @@
+Creating storage container...
+Invalid connection string: sp=racwdli&st=2025-04-10T12:27:42Z&se=2025-04-10T20:27:42Z&spr=https&sv=2024-11-04&sr=c&sig=r580NpHc7hYLk7DfbjkaWEOcj9rdZrWeeUVP6%2F4Ic%2BI%3D, err detail: Connection string missing required connection details.
+Try `az storage account show-connection-string` to get a valid connection string
+
+
+Not Found({"error":{"code":"Request_ResourceNotFound","message":"Resource '0d188c4d-7a5f-424c-be46-5c454634c226' does not exist or one of its queried reference-property objects are not present.","innerError":{"date":"2025-04-12T00:11:58","request-id":"c83a9448-ac4e-4ee6-861a-2d0dfccb00d8","client-request-id":"c83a9448-ac4e-4ee6-861a-2d0dfccb00d8"}}})    
+Couldn't find 'optionalClaims' in ''. Available options: []
+Invoking `az ad app permission grant --id 8a113625-43b9-4c8f-9c2b-c44df3aaf100 --api 00000003-0000-0000-c000-000000000000` is needed to make the change effective
+
+no secrets in your pipeline, clean sleat
