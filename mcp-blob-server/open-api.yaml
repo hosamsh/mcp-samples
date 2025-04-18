@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: MCP Blob Server Tools
+  description: API Schema for the Model Context Protocol tools in the MCP Blob Server application
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+    description: Local MCP Server
+paths:
+  /sse:
+    get:
+      summary: MCP Server SSE Connection
+      description: Establishes a Server-Sent Events connection for MCP tools
+      parameters:
+        - in: query
+          name: sessionId
+          schema:
+            type: string
+          required: false
+          description: Optional session ID for the connection
+      responses:
+        '200':
+          description: Successful SSE connection
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/EventStream'
+  /message:
+    post:
+      summary: MCP Tool Invocation
+      description: Endpoint for invoking MCP tool methods
+      parameters:
+        - in: query
+          name: sessionId
+          schema:
+            type: string
+          required: true
+          description: Session ID for the connection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToolRequest'
+      responses:
+        '202':
+          description: Tool invocation accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolResponse'
+components:
+  schemas:
+    EventStream:
+      type: object
+      description: Server-Sent Events stream
+    ToolRequest:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+          default: '2.0'
+        id:
+          type: string
+          description: Request identifier
+        method:
+          type: string
+          enum: [tools/call]
+          description: Method to invoke
+        params:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of the tool to invoke
+            parameters:
+              type: object
+              description: Parameters for the tool
+      required:
+        - jsonrpc
+        - id
+        - method
+        - params
+    ToolResponse:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+        id:
+          type: string
+        result:
+          type: object
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    EchoToolParams:
+      type: object
+      properties:
+        chatSessionId:
+          type: string
+          description: ID of the chat session
+        message:
+          type: string
+          description: Message to echo
+      required:
+        - chatSessionId
+        - message
+    ToBlobToolParams:
+      type: object
+      properties:
+        chatHistory:
+          type: string
+          description: Chat history content to store in blob storage
+      required:
+        - chatHistory
+  schemas:
+    ToolDefinitions:
+      type: object
+      properties:
+        tools:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              parameters:
+                type: object
+          example:
+            - name: Echo
+              description: Echoes the message back to the client. Takes in the chat session id and the message
+              parameters:
+                chatSessionId:
+                  type: string
+                  description: ID of the chat session
+                message:
+                  type: string
+                  description: Message to echo
+            - name: GetEntraSignInUrl
+              description: Returns the Microsoft Entra (Azure AD) sign-in URL for authentication
+              parameters: {}
+            - name: ToBlob
+              description: Stores the chat history in a file in a blob storage
+              parameters:
+                chatHistory:
+                  type: string
+                  description: Chat history content to store in blob storage

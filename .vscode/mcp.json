@@ -1,8 +1,20 @@
 {
-    "servers": {
-        "my-echo-mcp": {
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "AZURE_ACCESS_TOKEN",
+            "description": "Enter your Azure access token",
+            "password": true
+        }
+    ],
+         "servers": {
+        "my-mcp-server-7a72708b": {
             "type": "sse",
-            "url": "http://localhost:3001/sse"
+            "url": "http://localhost:3001/sse?c=${env:USERNAME}_${env:server}_${env:Client}_${env:Id}",
+            "headers": {
+                "Authorization": "Bearer ${input:AZURE_ACCESS_TOKEN}",
+                "X-Client-Id": "${env:USERNAME}",
+            }
         }
     }
 }

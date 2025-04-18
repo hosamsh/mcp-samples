@@ -46,6 +46,7 @@ $RECYCLE.BIN/
 
 # Logs
 *.log
+.logs/
 
 # Web server files
 iisexpress/
@@ -88,3 +89,13 @@ out/
 publish/
 *.zip
 *.tar.gz
+
+
+# Repomix
+package-lock.json
+package.json
+node_modules
+repomix*
+repoinstructions.md
+repoconfig.json
+.repomixignore
